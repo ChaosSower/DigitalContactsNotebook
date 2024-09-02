@@ -8,4 +8,18 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Reference Include="UniversalControlLibrary">
+      <HintPath>..\..\UniversalControlLibrary\UniversalControlLibrary\bin\Debug\net8.0-windows\UniversalControlLibrary.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EditorConfigFiles Remove="C:\Users\evtyk\source\repos\DigitalContactsNotebook\DigitalContactsNotebook\.editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="C:\Users\evtyk\source\repos\DigitalContactsNotebook\DigitalContactsNotebook\.editorconfig" />
+  </ItemGroup>
+
 </Project>

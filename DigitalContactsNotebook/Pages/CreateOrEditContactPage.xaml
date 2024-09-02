@@ -1,0 +1,62 @@
+﻿<Page
+    x:Class="DigitalContactsNotebook.Pages.CreateOrEditContactPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:DigitalContactsNotebook.Pages"
+    xmlns:universalcontrollibrary="clr-namespace:UniversalControlLibrary;assembly=UniversalControlLibrary"
+    mc:Ignorable="d"
+    d:DesignWidth="300" d:DesignHeight="200"
+    Title="Создание/редактирование контакта"
+>
+
+    <Grid Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Карточка контакта" HorizontalAlignment="Center" Margin="5"/>
+        
+        <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,5">
+                <TextBlock Text="Номер телефона:" Margin="0,0,10,0"/>
+                <universalcontrollibrary:PlaceholderTextBox PlaceholderText="+7 (XXX) XXX-XX-XX" Width="150" Height="20"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,5">
+                <TextBlock Text="Тип телефона:" Margin="0,0,10,0"/>
+                <ComboBox Width="150" Height="20"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,5">
+                <TextBlock Text="Имя:" Margin="0,0,10,0"/>
+                <universalcontrollibrary:PlaceholderTextBox PlaceholderText="Иванов" Width="150" Height="20"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,5">
+                <TextBlock Text="Фамилия:" Margin="0,0,10,0"/>
+                <universalcontrollibrary:PlaceholderTextBox PlaceholderText="Иван" Width="150" Height="20"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <TextBlock Text="Отчество:" Margin="0,0,10,0"/>
+                <universalcontrollibrary:PlaceholderTextBox PlaceholderText="Иванович" Width="150" Height="20"/>
+            </StackPanel>
+        </StackPanel>
+
+        <Grid Grid.Row="2">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            
+            <universalcontrollibrary:FocusableButton Content="Назад" Width="100" Height="25" Margin="5" Style="{StaticResource CurvedButtonStyle}"/>
+            <universalcontrollibrary:FocusableButton Grid.Column="2" Content="Сохранить" Width="100" Height="25" Margin="5" Style="{StaticResource CurvedButtonStyle}"/>
+            
+        </Grid>
+        
+    </Grid>
+
+</Page>

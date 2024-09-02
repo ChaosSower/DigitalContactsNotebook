@@ -1,0 +1,63 @@
+﻿<Page
+    x:Class="DigitalContactsNotebook.Pages.ContactsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:DigitalContactsNotebook.Pages"
+    xmlns:universalcontrollibrary="clr-namespace:UniversalControlLibrary;assembly=UniversalControlLibrary"
+    mc:Ignorable="d"
+    d:DesignWidth="600" d:DesignHeight="250"
+    Title="Страница контактов"
+>
+
+    <Grid Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel HorizontalAlignment="Right">
+            <TextBlock Text="Поиск контакта" HorizontalAlignment="Center" Margin="0,10,0,5">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="Black" Direction="270" ShadowDepth="2" BlurRadius="3"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <StackPanel Orientation="Horizontal" Margin="10,0,10,10">
+                <universalcontrollibrary:PlaceholderTextBox x:Name="SearchTextBlock" PlaceholderText="Номер телефона | Фамилия | Имя | Отчество" Foreground="Gray" Width="250" Height="25" Margin="0,0,5,0" VerticalContentAlignment="Center"/>
+                <universalcontrollibrary:FocusableButton Width="25" Height="25" Margin="0,0,1,0">
+                    <Button.Content>
+                        <Image Source="{StaticResource MagnifyingGlassImage_4}" Margin="3"/>
+                    </Button.Content>
+                </universalcontrollibrary:FocusableButton>
+                <universalcontrollibrary:FocusableButton x:Name="SelectPreviousContactButton" Content="&#x25B2;" Width="25" Height="25" Margin="0,0,1,0"/>
+                <universalcontrollibrary:FocusableButton x:Name="SelectNextContactButton" Content="&#x25BC;" Width="25" Height="25" Margin="0,0,1,0"/>
+                <universalcontrollibrary:FocusableButton x:Name="FilterSearchingButton" Width="25" Height="25" Style="{StaticResource CurvedButtonStyle}">
+                    <Button.Content>
+                        <Image Source="{StaticResource FilterImage_1}"/>
+                    </Button.Content>
+                </universalcontrollibrary:FocusableButton>
+            </StackPanel>
+        </StackPanel>
+
+        <DataGrid Grid.Row="1">
+
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="№" HeaderStyle="{StaticResource ResourceKey=HorizontallyCenteredHeaderStyle}" Width="Auto"/>
+                <DataGridTextColumn Header="Номер телефона" HeaderStyle="{StaticResource ResourceKey=HorizontallyCenteredHeaderStyle}" Width="*"/>
+                <DataGridTextColumn Header="Тип телефона" HeaderStyle="{StaticResource ResourceKey=HorizontallyCenteredHeaderStyle}" Width="Auto"/>
+                <DataGridTextColumn Header="Имя" HeaderStyle="{StaticResource ResourceKey=HorizontallyCenteredHeaderStyle}" Width="*"/>
+                <DataGridTextColumn Header="Фамилия" HeaderStyle="{StaticResource ResourceKey=HorizontallyCenteredHeaderStyle}" Width="*"/>
+                <DataGridTextColumn Header="Отчество" HeaderStyle="{StaticResource ResourceKey=HorizontallyCenteredHeaderStyle}" Width="*"/>
+                <DataGridTextColumn Header="Пол" HeaderStyle="{StaticResource ResourceKey=HorizontallyCenteredHeaderStyle}" Width="Auto"/>
+            </DataGrid.Columns>
+
+        </DataGrid>
+        
+        <Button x:Name="ReturnButton" Grid.Row="2" Content="Назад" HorizontalAlignment="Left" Margin="5"/>
+
+    </Grid>
+    
+</Page>
