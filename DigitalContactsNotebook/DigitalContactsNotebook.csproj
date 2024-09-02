@@ -6,9 +6,13 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
+    <Reference Include="UniversalClassLibrary">
+      <HintPath>..\..\MultimediaDownloader\MultimediaDownloader\bin\Debug\UniversalClassLibrary.dll</HintPath>
+    </Reference>
     <Reference Include="UniversalControlLibrary">
       <HintPath>..\..\UniversalControlLibrary\UniversalControlLibrary\bin\Debug\net8.0-windows\UniversalControlLibrary.dll</HintPath>
     </Reference>

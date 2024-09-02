@@ -5,16 +5,10 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:local="clr-namespace:DigitalContactsNotebook"
-    xmlns:universalcontrollibrary="clr-namespace:UniversalControlLibrary;assembly=UniversalControlLibrary"
     mc:Ignorable="d"
     Title="Электронная записная книжка контактов" Height="250" Width="500" WindowStartupLocation="CenterScreen"
 >
 
-    <Grid x:Name="MainWindowGrid">
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-            <universalcontrollibrary:FocusableButton Content="Просмотр контактов" Height="25" Margin="0,0,0,10" Style="{StaticResource CurvedButtonStyle}"/>
-            <universalcontrollibrary:FocusableButton Content="Добавить контакт" Height="25" Style="{StaticResource CurvedButtonStyle}"/>
-        </StackPanel>
-    </Grid>
+    <Frame x:Name="MainWindowFrame" NavigationUIVisibility="Hidden" Focusable="False"/>
 
 </Window>

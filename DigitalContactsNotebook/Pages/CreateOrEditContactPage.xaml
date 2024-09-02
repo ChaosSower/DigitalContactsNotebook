@@ -7,7 +7,7 @@
     xmlns:local="clr-namespace:DigitalContactsNotebook.Pages"
     xmlns:universalcontrollibrary="clr-namespace:UniversalControlLibrary;assembly=UniversalControlLibrary"
     mc:Ignorable="d"
-    d:DesignWidth="300" d:DesignHeight="200"
+    d:DesignWidth="300" d:DesignHeight="225"
     Title="Создание/редактирование контакта"
 >
 
@@ -20,27 +20,34 @@
         </Grid.RowDefinitions>
 
         <TextBlock Text="Карточка контакта" HorizontalAlignment="Center" Margin="5"/>
-        
-        <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+
+        <StackPanel x:Name="ContactInfoStackPanel" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,5">
                 <TextBlock Text="Номер телефона:" Margin="0,0,10,0"/>
-                <universalcontrollibrary:PlaceholderTextBox PlaceholderText="+7 (XXX) XXX-XX-XX" Width="150" Height="20"/>
+                <universalcontrollibrary:PlaceholderTextBox x:Name="PhoneNumberTextBox" PlaceholderText="+7 (XXX) XXX-XX-XX" Width="150" Height="20" MaxLength="18" DataObject.Pasting="PhoneNumberTextBox_Pasting"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,5">
                 <TextBlock Text="Тип телефона:" Margin="0,0,10,0"/>
-                <ComboBox Width="150" Height="20"/>
+                <ComboBox x:Name="PhoneTypeComboBox" Width="150" Height="20"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,5">
                 <TextBlock Text="Имя:" Margin="0,0,10,0"/>
-                <universalcontrollibrary:PlaceholderTextBox PlaceholderText="Иванов" Width="150" Height="20"/>
+                <universalcontrollibrary:PlaceholderTextBox x:Name="NameTextBox" PlaceholderText="Иванов" Width="150" Height="20" MaxLength="50" DataObject.Pasting="FullNameTextBox_Pasting"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,5">
                 <TextBlock Text="Фамилия:" Margin="0,0,10,0"/>
-                <universalcontrollibrary:PlaceholderTextBox PlaceholderText="Иван" Width="150" Height="20"/>
+                <universalcontrollibrary:PlaceholderTextBox x:Name="SurenameTextBox" PlaceholderText="Иван" Width="150" Height="20" MaxLength="50" DataObject.Pasting="FullNameTextBox_Pasting"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,5">
+                <TextBlock Text="Отчество:" Margin="0,0,10,0"/>
+                <universalcontrollibrary:PlaceholderTextBox x:Name="PatronymicTextBox" PlaceholderText="Иванович" Width="150" Height="20" MaxLength="50" DataObject.Pasting="FullNameTextBox_Pasting"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <TextBlock Text="Отчество:" Margin="0,0,10,0"/>
-                <universalcontrollibrary:PlaceholderTextBox PlaceholderText="Иванович" Width="150" Height="20"/>
+                <TextBlock Text="Пол:" Margin="0,0,10,0"/>
+                <ComboBox x:Name="SexComboBox" Width="150" Height="20">
+                    <TextBlock Text="М"/>
+                    <TextBlock Text="Ж"/>
+                </ComboBox>
             </StackPanel>
         </StackPanel>
 
@@ -51,12 +58,12 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            
-            <universalcontrollibrary:FocusableButton Content="Назад" Width="100" Height="25" Margin="5" Style="{StaticResource CurvedButtonStyle}"/>
-            <universalcontrollibrary:FocusableButton Grid.Column="2" Content="Сохранить" Width="100" Height="25" Margin="5" Style="{StaticResource CurvedButtonStyle}"/>
-            
+
+            <universalcontrollibrary:FocusableButton x:Name="ReturnButton" Content="Назад" Width="100" Height="25" Margin="5" Style="{StaticResource CurvedButtonStyle}" Click="ReturnButton_Click"/>
+            <universalcontrollibrary:FocusableButton x:Name="SaveOrEditContactButton" Grid.Column="2" Content="[Текст]" Width="100" Height="25" Margin="5" Style="{StaticResource CurvedButtonStyle}" Click="SaveOrEditContactButton_Click"/>
+
         </Grid>
-        
+
     </Grid>
 
 </Page>

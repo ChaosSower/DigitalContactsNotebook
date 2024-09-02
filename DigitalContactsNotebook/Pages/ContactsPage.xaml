@@ -20,11 +20,7 @@
         </Grid.RowDefinitions>
 
         <StackPanel HorizontalAlignment="Right">
-            <TextBlock Text="Поиск контакта" HorizontalAlignment="Center" Margin="0,10,0,5">
-                <TextBlock.Effect>
-                    <DropShadowEffect Color="Black" Direction="270" ShadowDepth="2" BlurRadius="3"/>
-                </TextBlock.Effect>
-            </TextBlock>
+            <TextBlock Text="Поиск контакта" HorizontalAlignment="Center" Margin="0,10,0,5"/>
             <StackPanel Orientation="Horizontal" Margin="10,0,10,10">
                 <universalcontrollibrary:PlaceholderTextBox x:Name="SearchTextBlock" PlaceholderText="Номер телефона | Фамилия | Имя | Отчество" Foreground="Gray" Width="250" Height="25" Margin="0,0,5,0" VerticalContentAlignment="Center"/>
                 <universalcontrollibrary:FocusableButton Width="25" Height="25" Margin="0,0,1,0">
@@ -56,7 +52,7 @@
 
         </DataGrid>
         
-        <Button x:Name="ReturnButton" Grid.Row="2" Content="Назад" HorizontalAlignment="Left" Margin="5"/>
+        <universalcontrollibrary:FocusableButton x:Name="ReturnButton" Grid.Row="2" Content="Назад" Width="50" Height="25" HorizontalAlignment="Left" Margin="5" Style="{StaticResource CurvedButtonStyle}" Click="ReturnButton_Click"/>
 
     </Grid>
     
