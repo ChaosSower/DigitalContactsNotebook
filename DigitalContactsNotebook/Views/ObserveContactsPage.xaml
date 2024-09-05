@@ -1,13 +1,13 @@
 ﻿<Page
-    x:Class="DigitalContactsNotebook.Pages.ContactsPage"
+    x:Class="DigitalContactsNotebook.Views.ObserveContactsPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="clr-namespace:DigitalContactsNotebook.Pages"
+    xmlns:local="clr-namespace:DigitalContactsNotebook.Views"
     xmlns:universalcontrollibrary="clr-namespace:UniversalControlLibrary;assembly=UniversalControlLibrary"
     mc:Ignorable="d"
-    d:DesignWidth="600" d:DesignHeight="250"
+    d:DesignWidth="525" d:DesignHeight="250"
     Title="Страница контактов"
 >
 
@@ -38,22 +38,30 @@
             </StackPanel>
         </StackPanel>
 
-        <DataGrid Grid.Row="1">
+        <DataGrid x:Name="ObserveContactsPageDataGrid" Grid.Row="1" AutoGenerateColumns="False" IsReadOnly="True">
+
+            <DataGrid.ColumnHeaderStyle>
+                <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource HorizontallyCenteredHeaderStyle}"/>
+            </DataGrid.ColumnHeaderStyle>
+
+            <DataGrid.CellStyle>
+                <Style TargetType="DataGridCell" BasedOn="{StaticResource HorizontallyCenteredCellStyle}"/>
+            </DataGrid.CellStyle>
 
             <DataGrid.Columns>
-                <DataGridTextColumn Header="№" HeaderStyle="{StaticResource ResourceKey=HorizontallyCenteredHeaderStyle}" Width="Auto"/>
-                <DataGridTextColumn Header="Номер телефона" HeaderStyle="{StaticResource ResourceKey=HorizontallyCenteredHeaderStyle}" Width="*"/>
-                <DataGridTextColumn Header="Тип телефона" HeaderStyle="{StaticResource ResourceKey=HorizontallyCenteredHeaderStyle}" Width="Auto"/>
-                <DataGridTextColumn Header="Имя" HeaderStyle="{StaticResource ResourceKey=HorizontallyCenteredHeaderStyle}" Width="*"/>
-                <DataGridTextColumn Header="Фамилия" HeaderStyle="{StaticResource ResourceKey=HorizontallyCenteredHeaderStyle}" Width="*"/>
-                <DataGridTextColumn Header="Отчество" HeaderStyle="{StaticResource ResourceKey=HorizontallyCenteredHeaderStyle}" Width="*"/>
-                <DataGridTextColumn Header="Пол" HeaderStyle="{StaticResource ResourceKey=HorizontallyCenteredHeaderStyle}" Width="Auto"/>
+                <DataGridTextColumn Header="№" Binding="{Binding ID}" Width="Auto"/>
+                <DataGridTextColumn Header="Номер телефона" Binding="{Binding PhoneNumber}" Width="Auto"/>
+                <DataGridTextColumn Header="Тип телефона" Binding="{Binding PhoneType}" Width="Auto"/>
+                <DataGridTextColumn Header="Имя" Binding="{Binding Name}" Width="100"/>
+                <DataGridTextColumn Header="Фамилия" Binding="{Binding Surname}" Width="100"/>
+                <DataGridTextColumn Header="Отчество" Binding="{Binding Patronymic}" Width="Auto"/>
+                <DataGridTextColumn Header="Пол" Binding="{Binding Sex}" Width="Auto"/>
             </DataGrid.Columns>
 
         </DataGrid>
-        
+
         <universalcontrollibrary:FocusableButton x:Name="ReturnButton" Grid.Row="2" Content="Назад" Width="50" Height="25" HorizontalAlignment="Left" Margin="5" Style="{StaticResource CurvedButtonStyle}" Click="ReturnButton_Click"/>
 
     </Grid>
-    
+
 </Page>

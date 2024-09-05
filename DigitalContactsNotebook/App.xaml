@@ -21,8 +21,32 @@
                 </Setter>
             </Style>
 
-            <Style TargetType="DataGridColumnHeader" x:Key="HorizontallyCenteredHeaderStyle">
+            <Style x:Key="HorizontallyCenteredHeaderStyle" TargetType="DataGridColumnHeader">
                 <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            </Style>
+
+            <Style x:Key="HorizontallyCenteredCellStyle" TargetType="DataGridCell">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="DataGridCell">
+                            <Grid Background="{TemplateBinding Background}">
+                                <ContentPresenter HorizontalAlignment="Center"/>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="LeftAlignedCellStyle" TargetType="DataGridCell" BasedOn="{StaticResource HorizontallyCenteredCellStyle}">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="DataGridCell">
+                            <Grid Background="{TemplateBinding Background}">
+                                <ContentPresenter HorizontalAlignment="Left"/>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
             </Style>
 
             <ResourceDictionary.MergedDictionaries>

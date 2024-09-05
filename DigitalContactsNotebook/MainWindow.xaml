@@ -6,7 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:local="clr-namespace:DigitalContactsNotebook"
     mc:Ignorable="d"
-    Title="Электронная записная книжка контактов" Height="250" Width="500" WindowStartupLocation="CenterScreen"
+    Title="Электронная записная книжка контактов" Height="250" Width="600" WindowStartupLocation="CenterScreen"
 >
 
     <Frame x:Name="MainWindowFrame" NavigationUIVisibility="Hidden" Focusable="False"/>

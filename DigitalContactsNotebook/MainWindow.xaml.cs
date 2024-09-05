@@ -1,7 +1,7 @@
 ﻿using System.Windows.Controls;
 using System.Windows;
 
-using DigitalContactsNotebook.Pages;
+using DigitalContactsNotebook.Views;
 
 namespace DigitalContactsNotebook
 {
@@ -10,6 +10,9 @@ namespace DigitalContactsNotebook
     /// </summary>
     public partial class MainWindow : Window
     {
+        /// <summary>
+        /// Конструктор <see cref="MainWindow"/>
+        /// </summary>
         public MainWindow()
         {
             InitializeComponent();

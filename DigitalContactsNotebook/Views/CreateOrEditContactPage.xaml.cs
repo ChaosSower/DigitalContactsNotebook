@@ -5,8 +5,12 @@ using System.Text.RegularExpressions;
 
 using UniversalClassLibrary;
 using UniversalControlLibrary;
+using DigitalContactsNotebook.Models;
+using DigitalContactsNotebook.Data;
+using System.Data.Entity;
+using System.Windows.Media;
 
-namespace DigitalContactsNotebook.Pages
+namespace DigitalContactsNotebook.Views
 {
     /// <summary>
     /// <see cref="Page"/> создания/редактирования контакта
@@ -14,14 +18,14 @@ namespace DigitalContactsNotebook.Pages
     public partial class CreateOrEditContactPage : Page
     {
         private readonly Frame MainWindowFrame;
-
-        /// <summary>
-        /// <see cref="bool"/> параметр, показывающий, создаётся или редактируется контакт
-        /// </summary>
         private readonly bool IsNewContact;
-
         private const string PhoneNumberMask = "+7 (XXX) XXX-XX-XX";
 
+        /// <summary>
+        /// Конструктор страницы создания/редактирования контакта
+        /// </summary>
+        /// <param name="MainWindowFrame"><see cref="Frame"/> окна <see cref="MainWindow"/></param>
+        /// <param name="IsNewContact">Параметр, показывающий, создаётся или редактируется контакт</param>
         public CreateOrEditContactPage(Frame MainWindowFrame, bool IsNewContact = true)
         {
             InitializeComponent();
@@ -37,6 +41,12 @@ namespace DigitalContactsNotebook.Pages
             else
             {
                 SaveOrEditContactButton.Content = "Редактировать";
+            }
+
+            using(ApplicationContext ApplicationContext = new())
+            {
+                List<string> PhoneTypes = ApplicationContext.PhoneTypes?.Select(PhoneType => PhoneType.PhoneTypeText).ToList() ?? [];
+                PhoneTypeComboBox.ItemsSource = PhoneTypes;
             }
 
             PhoneNumberTextBox.PreviewTextInput += (sender, e) =>
@@ -64,10 +74,14 @@ namespace DigitalContactsNotebook.Pages
                 }
             };
 
+            PhoneNumberTextBox.GotFocus += (sender, e) => PhoneNumberTextBox.BorderBrush = Brushes.DarkGray;
+
             ContactInfoStackPanel.ProcessAllChildVisualControls(Control =>
             {
                 if (Control is PlaceholderTextBox PlaceholderTextBox && Control != PhoneNumberTextBox)
                 {
+                    PlaceholderTextBox.GotFocus += (sender, e) => PlaceholderTextBox.BorderBrush = Brushes.DarkGray;
+
                     PlaceholderTextBox.PreviewTextInput += (sender, e) =>
                     {
                         if (sender is TextBox TextBox)
@@ -86,6 +100,14 @@ namespace DigitalContactsNotebook.Pages
                             e.Handled = true;
                         }
                     };
+                }
+
+                else if (Control is Border Border)
+                {
+                    if (Border.Child is ComboBox ComboBox)
+                    {
+                        ComboBox.GotFocus += (sender, e) => Border.BorderThickness = new(0);
+                    }
                 }
             });
         }
@@ -107,14 +129,115 @@ namespace DigitalContactsNotebook.Pages
         /// <param name="e"></param>
         private void SaveOrEditContactButton_Click(object sender, RoutedEventArgs e)
         {
-            if (IsNewContact)
-            {
+            bool AllowOperation = true;
 
+            // Проверка заполненности полей данными //
+
+            ContactInfoStackPanel.ProcessAllChildVisualControls(Control =>
+            {
+                if (Control is PlaceholderTextBox PlaceholderTextBox && PlaceholderTextBox != PatronymicTextBox)
+                {
+                    if (string.IsNullOrEmpty(PlaceholderTextBox.Text) || PlaceholderTextBox.Text == PlaceholderTextBox.PlaceholderText && PlaceholderTextBox.Foreground == Brushes.Gray)
+                    {
+                        PlaceholderTextBox.BorderBrush = Brushes.Red;
+
+                        AllowOperation = false;
+                    }
+                }
+
+                else if (Control is Border Border)
+                {
+                    if (Border.Child is ComboBox ComboBox && ComboBox != PhoneTypeComboBox)
+                    {
+                        if (string.IsNullOrEmpty(ComboBox.Text))
+                        {
+                            Border.BorderThickness = new(1);
+                            Border.BorderBrush = Brushes.Red;
+
+                            AllowOperation = false;
+                        }
+                    }
+                }
+            });
+
+            // Валидация полей //
+
+            if (!IsTextAllowed(PhoneNumberTextBox.Text, PhoneNumberOnlyRegex()))
+            {
+                PhoneNumberTextBox.BorderBrush = Brushes.Red;
+
+                AllowOperation = false;
             }
 
-            else
+            ContactInfoStackPanel.ProcessAllChildVisualControls(Control =>
             {
+                if (Control is PlaceholderTextBox PlaceholderTextBox && PlaceholderTextBox != PhoneNumberTextBox)
+                {
+                    if (!IsTextAllowed(PlaceholderTextBox.Text, FullNameOnlyRegex()))
+                    {
+                        PlaceholderTextBox.BorderBrush = Brushes.Red;
 
+                        AllowOperation = false;
+                    }
+                }
+            });
+
+            if (AllowOperation)
+            {
+                if (IsNewContact)
+                {
+                    using ApplicationContext ApplicationContext = new();
+
+                    int ContactsInfoMaxID = ApplicationContext.ContactsInfo.Count();
+                    int ContactsMaxID = ApplicationContext.Contacts.Count();
+
+                    string? Patronymic = null;
+
+                    if (!(PatronymicTextBox.Text == PatronymicTextBox.PlaceholderText && PatronymicTextBox.Foreground == Brushes.Gray))
+                    {
+                        Patronymic = PatronymicTextBox.Text;
+                    }
+
+                    ContactInfo ContactInfo = new()
+                    {
+                        ID = ContactsInfoMaxID + 1,
+                        Name = NameTextBox.Text,
+                        Surname = SurnameTextBox.Text,
+                        Patronymic = Patronymic,
+                        Sex = SexComboBox.Text[0]
+                    };
+
+                    int? PhoneTypeID = null;
+
+                    if (PhoneTypeComboBox.SelectedIndex != -1)
+                    {
+                        PhoneTypeID = PhoneTypeComboBox.SelectedIndex;
+                    }
+
+                    Contact Contact = new()
+                    {
+                        ID = ContactsMaxID + 1,
+                        PhoneNumber = PhoneNumberTextBox.Text,
+                        PhoneTypeID = PhoneTypeID,
+                        ContactInfoID = ContactInfo.ID,
+                    };
+
+                    ApplicationContext.ContactsInfo.Add(ContactInfo);
+                    ApplicationContext.Contacts.Add(Contact);
+
+                    ApplicationContext.SaveChanges();
+
+                    //string sql = "INSERT INTO Contacts (ID, PhoneNumber, PhoneTypeID, ContactInfoID) VALUES (@p0, @p1, @p2, @p3)";
+                    //ApplicationContext.Database.ExecuteSqlCommand(sql, 2, "1234567890", 1, 2);
+                }
+
+                else
+                {
+                    using ApplicationContext ApplicationContext = new();
+
+                    List<string> PhoneTypes = ApplicationContext.PhoneTypes.Select(PhoneType => PhoneType.PhoneTypeText).ToList();
+                    PhoneTypeComboBox.ItemsSource = PhoneTypes;
+                }
             }
         }
 
@@ -276,7 +399,7 @@ namespace DigitalContactsNotebook.Pages
         /// <see cref="Regex"/>, которому соответствует только формат кириллицы с первой заглавной буквой и остальными строчными буквами
         /// </summary>
         /// <returns></returns>
-        [GeneratedRegex("^[А-ЯЁ][а-яё]$")]
+        [GeneratedRegex("^[А-ЯЁ][а-яё]+$")]
         private static partial Regex FullNameOnlyRegex();
 
         /// <summary>

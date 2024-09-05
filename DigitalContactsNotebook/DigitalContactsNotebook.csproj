@@ -26,4 +26,8 @@
     <None Include="C:\Users\evtyk\source\repos\DigitalContactsNotebook\DigitalContactsNotebook\.editorconfig" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="EntityFramework" Version="6.5.1" />
+  </ItemGroup>
+
 </Project>

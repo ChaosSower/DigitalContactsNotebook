@@ -1,10 +1,10 @@
 ﻿<Page
-    x:Class="DigitalContactsNotebook.Pages.CreateOrEditContactPage"
+    x:Class="DigitalContactsNotebook.Views.CreateOrEditContactPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="clr-namespace:DigitalContactsNotebook.Pages"
+    xmlns:local="clr-namespace:DigitalContactsNotebook.Views"
     xmlns:universalcontrollibrary="clr-namespace:UniversalControlLibrary;assembly=UniversalControlLibrary"
     mc:Ignorable="d"
     d:DesignWidth="300" d:DesignHeight="225"
@@ -36,7 +36,7 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,5">
                 <TextBlock Text="Фамилия:" Margin="0,0,10,0"/>
-                <universalcontrollibrary:PlaceholderTextBox x:Name="SurenameTextBox" PlaceholderText="Иван" Width="150" Height="20" MaxLength="50" DataObject.Pasting="FullNameTextBox_Pasting"/>
+                <universalcontrollibrary:PlaceholderTextBox x:Name="SurnameTextBox" PlaceholderText="Иван" Width="150" Height="20" MaxLength="50" DataObject.Pasting="FullNameTextBox_Pasting"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,5">
                 <TextBlock Text="Отчество:" Margin="0,0,10,0"/>
@@ -44,10 +44,12 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                 <TextBlock Text="Пол:" Margin="0,0,10,0"/>
-                <ComboBox x:Name="SexComboBox" Width="150" Height="20">
-                    <TextBlock Text="М"/>
-                    <TextBlock Text="Ж"/>
-                </ComboBox>
+                <Border Width="150" Height="20">
+                    <ComboBox x:Name="SexComboBox">
+                        <TextBlock Text="М"/>
+                        <TextBlock Text="Ж"/>
+                    </ComboBox>
+                </Border>
             </StackPanel>
         </StackPanel>
 

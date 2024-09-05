@@ -1,7 +1,7 @@
 ﻿using System.Windows.Controls;
 using System.Windows;
 
-namespace DigitalContactsNotebook.Pages
+namespace DigitalContactsNotebook.Views
 {
     /// <summary>
     /// <see cref="Page"/> главного окна <see cref="MainWindow"/>
@@ -10,6 +10,10 @@ namespace DigitalContactsNotebook.Pages
     {
         private readonly Frame MainWindowFrame;
 
+        /// <summary>
+        /// Конструктор главной страницы
+        /// </summary>
+        /// <param name="MainWindowFrame"><see cref="Frame"/> окна <see cref="MainWindow"/></param>
         public MainWindowPage(Frame MainWindowFrame)
         {
             InitializeComponent();
@@ -24,7 +28,7 @@ namespace DigitalContactsNotebook.Pages
         /// <param name="e"></param>
         private void ObserveContactsButton_Click(object sender, RoutedEventArgs e)
         {
-            MainWindowFrame.Navigate(new ContactsPage(MainWindowFrame));
+            MainWindowFrame.Navigate(new ObserveContactsPage(MainWindowFrame));
         }
 
         /// <summary>
