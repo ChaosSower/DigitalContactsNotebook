@@ -7,7 +7,7 @@
     xmlns:local="clr-namespace:DigitalContactsNotebook.Views"
     xmlns:universalcontrollibrary="clr-namespace:UniversalControlLibrary;assembly=UniversalControlLibrary"
     mc:Ignorable="d"
-    d:DesignWidth="300" d:DesignHeight="225"
+    d:DesignWidth="675" d:DesignHeight="500"
     Title="Создание/редактирование контакта"
 >
 
@@ -19,7 +19,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Text="Карточка контакта" HorizontalAlignment="Center" Margin="5"/>
+        <TextBlock Text="Карточка контакта" HorizontalAlignment="Center" FontSize="34" Margin="5"/>
 
         <StackPanel x:Name="ContactInfoStackPanel" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,5">
@@ -28,7 +28,7 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,5">
                 <TextBlock Text="Тип телефона:" Margin="0,0,10,0"/>
-                <ComboBox x:Name="PhoneTypeComboBox" Width="150" Height="20"/>
+                <ComboBox x:Name="PhoneTypeComboBox" Cursor="Hand" Width="150" Height="20"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,5">
                 <TextBlock Text="Имя:" Margin="0,0,10,0"/>
@@ -45,7 +45,7 @@
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                 <TextBlock Text="Пол:" Margin="0,0,10,0"/>
                 <Border Width="150" Height="20">
-                    <ComboBox x:Name="SexComboBox">
+                    <ComboBox x:Name="SexComboBox" Cursor="Hand">
                         <TextBlock Text="М"/>
                         <TextBlock Text="Ж"/>
                     </ComboBox>
@@ -61,8 +61,8 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
-            <universalcontrollibrary:FocusableButton x:Name="ReturnButton" Content="Назад" Width="100" Height="25" Margin="5" Style="{StaticResource CurvedButtonStyle}" Click="ReturnButton_Click"/>
-            <universalcontrollibrary:FocusableButton x:Name="SaveOrEditContactButton" Grid.Column="2" Content="[Текст]" Width="100" Height="25" Margin="5" Style="{StaticResource CurvedButtonStyle}" Click="SaveOrEditContactButton_Click"/>
+            <universalcontrollibrary:FocusableButton x:Name="ReturnButton" IsButtonGrows="False" Content="Назад" Cursor="Hand" Width="100" Height="50" Margin="5" Style="{StaticResource CurvedButtonStyle}" Click="ReturnButton_Click"/>
+            <universalcontrollibrary:FocusableButton x:Name="SaveOrEditContactButton" Grid.Column="2" IsButtonGrows="False" Content="[Текст]" Cursor="Hand" Width="100" Height="50" Margin="5" Style="{StaticResource CurvedButtonStyle}" Click="SaveOrEditContactButton_Click"/>
 
         </Grid>
 

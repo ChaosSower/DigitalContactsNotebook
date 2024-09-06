@@ -25,19 +25,19 @@
                 <Setter Property="HorizontalContentAlignment" Value="Center"/>
             </Style>
 
-            <Style x:Key="HorizontallyCenteredCellStyle" TargetType="DataGridCell">
+            <Style x:Key="CenteredCellStyle" TargetType="DataGridCell">
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="DataGridCell">
                             <Grid Background="{TemplateBinding Background}">
-                                <ContentPresenter HorizontalAlignment="Center"/>
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                             </Grid>
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
             </Style>
 
-            <Style x:Key="LeftAlignedCellStyle" TargetType="DataGridCell" BasedOn="{StaticResource HorizontallyCenteredCellStyle}">
+            <Style x:Key="LeftAlignedCellStyle" TargetType="DataGridCell" BasedOn="{StaticResource CenteredCellStyle}">
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="DataGridCell">
@@ -53,6 +53,7 @@
                 <ResourceDictionary Source="Resources/Images (XAML)/SearchImagesDictionary.xaml"/>
                 <ResourceDictionary Source="Resources/Images (XAML)/FilterImagesDictionary.xaml"/>
                 <ResourceDictionary Source="Resources/Images (XAML)/InfoIconImagesDictionary.xaml"/>
+                <ResourceDictionary Source="Resources/Images (XAML)/EditFeatureImagesDictionary.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             
         </ResourceDictionary>

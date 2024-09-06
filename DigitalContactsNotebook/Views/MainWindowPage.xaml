@@ -7,12 +7,12 @@
     xmlns:local="clr-namespace:DigitalContactsNotebook.Views"
     xmlns:universalcontrollibrary="clr-namespace:UniversalControlLibrary;assembly=UniversalControlLibrary"
     mc:Ignorable="d"
-    d:DesignWidth="125" d:DesignHeight="75"
+    d:DesignWidth="250" d:DesignHeight="150"
 >
 
-    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-        <universalcontrollibrary:FocusableButton x:Name="ObserveContactsButton" Content="Просмотр контактов" Height="25" Margin="0,0,0,10" Style="{StaticResource CurvedButtonStyle}" Click="ObserveContactsButton_Click"/>
-        <universalcontrollibrary:FocusableButton x:Name="AddContactButton" Content="Добавить контакт" Height="25" Style="{StaticResource CurvedButtonStyle}" Click="AddContactButton_Click"/>
+    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Width="250">
+        <universalcontrollibrary:FocusableButton x:Name="ObserveContactsButton" IsButtonGrows="False" Content="Просмотр контактов" Cursor="Hand" Height="50" Margin="0,0,0,10" Style="{StaticResource CurvedButtonStyle}" Click="ObserveContactsButton_Click"/>
+        <universalcontrollibrary:FocusableButton x:Name="AddContactButton" IsButtonGrows="False" Content="Добавить контакт" Cursor="Hand" Height="50" Style="{StaticResource CurvedButtonStyle}" Click="AddContactButton_Click"/>
     </StackPanel>
 
 </Page>
