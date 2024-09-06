@@ -6,16 +6,17 @@ namespace DigitalContactsNotebook.Models
     /// <summary>
     /// Строка контакта таблицы <see cref="ApplicationContext.Contacts"/>
     /// </summary>
-    internal class Contact : IDatabase
+    public class Contact : IDatabase
     {
+        /// <summary>
+        /// Обязательное поле ID
+        /// </summary>
         public required int ID { get; set; }
 
         /// <summary>
         /// Номер телефона
         /// </summary>
         public required string PhoneNumber { get; set; }
-
-        private int? _PhoneTypeID;
 
         /// <summary>
         /// ID типа телефона из <see cref="PhoneType"/>

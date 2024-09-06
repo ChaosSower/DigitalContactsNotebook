@@ -24,13 +24,14 @@ namespace DigitalContactsNotebook.Models
         public required string Surname { get; set; }
 
         /// <summary>
-        /// Отчество контакта
+        /// Отчество контакта (при наличии)
         /// </summary>
         public string? Patronymic { get; set; }
 
         /// <summary>
         /// Пол контакта
         /// </summary>
-        public required char Sex { get; set; }
+        //public required char Sex { get; set; } // см. файл ContactViewModel.cs
+        public required string Sex { get; set; }
     }
 }
