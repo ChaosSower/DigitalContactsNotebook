@@ -7,11 +7,11 @@
     xmlns:local="clr-namespace:DigitalContactsNotebook.Views"
     xmlns:universalcontrollibrary="clr-namespace:UniversalControlLibrary;assembly=UniversalControlLibrary"
     mc:Ignorable="d"
-    d:DesignWidth="525" d:DesignHeight="250"
+    d:DesignWidth="600" d:DesignHeight="250"
     Title="Страница контактов"
 >
 
-    <Grid Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
+    <Grid x:Name="ObserveContactsPageGrid" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -23,14 +23,14 @@
             <TextBlock Text="Поиск контакта" HorizontalAlignment="Center" Margin="0,10,0,5"/>
             <StackPanel Orientation="Horizontal" Margin="10,0,10,10">
                 <universalcontrollibrary:PlaceholderTextBox x:Name="SearchTextBlock" PlaceholderText="Номер телефона | Фамилия | Имя | Отчество" Foreground="Gray" Width="250" Height="25" Margin="0,0,5,0" VerticalContentAlignment="Center"/>
-                <universalcontrollibrary:FocusableButton Width="25" Height="25" Margin="0,0,1,0">
+                <universalcontrollibrary:FocusableButton Width="25" Height="25" Margin="0,0,1,0" ToolTip="Поиск контакта">
                     <Button.Content>
                         <Image Source="{StaticResource MagnifyingGlassImage_4}" Margin="3"/>
                     </Button.Content>
                 </universalcontrollibrary:FocusableButton>
-                <universalcontrollibrary:FocusableButton x:Name="SelectPreviousContactButton" Content="&#x25B2;" Width="25" Height="25" Margin="0,0,1,0"/>
-                <universalcontrollibrary:FocusableButton x:Name="SelectNextContactButton" Content="&#x25BC;" Width="25" Height="25" Margin="0,0,1,0"/>
-                <universalcontrollibrary:FocusableButton x:Name="FilterSearchingButton" Width="25" Height="25" Style="{StaticResource CurvedButtonStyle}">
+                <universalcontrollibrary:FocusableButton x:Name="SelectPreviousContactButton" Content="&#x25B2;" Width="25" Height="25" Margin="0,0,1,0" ToolTip="К предыдущему контакту"/>
+                <universalcontrollibrary:FocusableButton x:Name="SelectNextContactButton" Content="&#x25BC;" Width="25" Height="25" Margin="0,0,1,0" ToolTip="К следующему контакту"/>
+                <universalcontrollibrary:FocusableButton x:Name="FilterSearchingButton" Width="25" Height="25" Style="{StaticResource CurvedButtonStyle}" ToolTip="Открыть параметры фильтрации">
                     <Button.Content>
                         <Image Source="{StaticResource FilterImage_1}"/>
                     </Button.Content>
@@ -38,17 +38,26 @@
             </StackPanel>
         </StackPanel>
 
-        <DataGrid x:Name="ObserveContactsPageDataGrid" Grid.Row="1" AutoGenerateColumns="False" IsReadOnly="True">
+        <DataGrid x:Name="ObserveContactsPageDataGrid" Grid.Row="1" AutoGenerateColumns="False" IsReadOnly="True" RowHeight="30">
 
             <DataGrid.ColumnHeaderStyle>
                 <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource HorizontallyCenteredHeaderStyle}"/>
             </DataGrid.ColumnHeaderStyle>
 
             <DataGrid.CellStyle>
-                <Style TargetType="DataGridCell" BasedOn="{StaticResource HorizontallyCenteredCellStyle}"/>
+                <Style TargetType="DataGridCell" BasedOn="{StaticResource CenteredCellStyle}"/>
             </DataGrid.CellStyle>
 
             <DataGrid.Columns>
+                <DataGridTemplateColumn Width="Auto">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Cursor="Hand" Width="20" Height="20" Margin="5,0" ToolTip="Посмотреть информацию о контакте" Command="{Binding CheckContactCommand}">
+                                <Image Source="{StaticResource InfoIconImage_10}"/>
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
                 <DataGridTextColumn Header="№" Binding="{Binding ID}" Width="Auto"/>
                 <DataGridTextColumn Header="Номер телефона" Binding="{Binding PhoneNumber}" Width="Auto"/>
                 <DataGridTextColumn Header="Тип телефона" Binding="{Binding PhoneType}" Width="Auto"/>
@@ -56,11 +65,25 @@
                 <DataGridTextColumn Header="Фамилия" Binding="{Binding Surname}" Width="100"/>
                 <DataGridTextColumn Header="Отчество" Binding="{Binding Patronymic}" Width="Auto"/>
                 <DataGridTextColumn Header="Пол" Binding="{Binding Sex}" Width="Auto"/>
+                <DataGridTemplateColumn Header="Действия" Width="Auto">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Button Width="20" Cursor="Hand" Height="20" Margin="5,0" ToolTip="Редактировать контакт" Command="{Binding EditContactCommand}">
+                                    <Image Source="{StaticResource PencilImage_1}"/>
+                                </Button>
+                                <Button Background="Red" Cursor="Hand" Width="20" Height="20" Margin="5,0" ToolTip="Удалить контакт" Command="{Binding DeleteContactCommand}">
+                                    <TextBlock Text="-" FontSize="12" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                                </Button>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
 
         </DataGrid>
 
-        <universalcontrollibrary:FocusableButton x:Name="ReturnButton" Grid.Row="2" Content="Назад" Width="50" Height="25" HorizontalAlignment="Left" Margin="5" Style="{StaticResource CurvedButtonStyle}" Click="ReturnButton_Click"/>
+        <universalcontrollibrary:FocusableButton x:Name="ReturnButton" Grid.Row="2" IsButtonGrows="False" Content="Назад" Width="50" Height="25" HorizontalAlignment="Left" Margin="5" Style="{StaticResource CurvedButtonStyle}" Click="ReturnButton_Click"/>
 
     </Grid>
 

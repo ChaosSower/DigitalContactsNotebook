@@ -9,6 +9,7 @@ using DigitalContactsNotebook.Models;
 using DigitalContactsNotebook.Data;
 using System.Data.Entity;
 using System.Windows.Media;
+using DigitalContactsNotebook.ViewModels;
 
 namespace DigitalContactsNotebook.Views
 {
@@ -18,29 +19,45 @@ namespace DigitalContactsNotebook.Views
     public partial class CreateOrEditContactPage : Page
     {
         private readonly Frame MainWindowFrame;
-        private readonly bool IsNewContact;
+        private readonly ContactViewModel? ContactViewModel;
         private const string PhoneNumberMask = "+7 (XXX) XXX-XX-XX";
 
         /// <summary>
         /// Конструктор страницы создания/редактирования контакта
         /// </summary>
         /// <param name="MainWindowFrame"><see cref="Frame"/> окна <see cref="MainWindow"/></param>
-        /// <param name="IsNewContact">Параметр, показывающий, создаётся или редактируется контакт</param>
-        public CreateOrEditContactPage(Frame MainWindowFrame, bool IsNewContact = true)
+        /// <param name="ContactViewModel">Параметр контакта (если редактируется)</param>
+        /// <param name="IsEditContact"><see cref="bool"/>, показывающий, просматривается или редактируется контакт</param>
+        public CreateOrEditContactPage(Frame MainWindowFrame, ContactViewModel? ContactViewModel = null, bool IsEditContact = false)
         {
             InitializeComponent();
 
             this.MainWindowFrame = MainWindowFrame;
-            this.IsNewContact = IsNewContact;
+            this.ContactViewModel = ContactViewModel;
 
-            if (IsNewContact)
+            if (ContactViewModel != null)
             {
-                SaveOrEditContactButton.Content = "Сохранить";
+                if (IsEditContact)
+                {
+                    SaveOrEditContactButton.Content = "Редактировать";
+                }
+
+                else
+                {
+                    SaveOrEditContactButton.Visibility = Visibility.Hidden;
+                }
+
+                PhoneNumberTextBox.Text = ContactViewModel.PhoneNumber;
+                PhoneTypeComboBox.SelectedIndex = ContactViewModel.Contact.PhoneTypeID ?? -1;
+                NameTextBox.Text = ContactViewModel.Name;
+                SurnameTextBox.Text = ContactViewModel.Surname;
+                PatronymicTextBox.Text = ContactViewModel.Patronymic;
+                SexComboBox.SelectedIndex = SexComboBox.Items.Cast<TextBlock>().ToList().FindIndex(ComboBoxTextBlock => ComboBoxTextBlock.Text == ContactViewModel.Sex);
             }
 
             else
             {
-                SaveOrEditContactButton.Content = "Редактировать";
+                SaveOrEditContactButton.Content = "Сохранить";
             }
 
             using(ApplicationContext ApplicationContext = new())
@@ -184,7 +201,15 @@ namespace DigitalContactsNotebook.Views
 
             if (AllowOperation)
             {
-                if (IsNewContact)
+                if (ContactViewModel != null)
+                {
+                    using ApplicationContext ApplicationContext = new();
+
+                    List<string> PhoneTypes = ApplicationContext.PhoneTypes.Select(PhoneType => PhoneType.PhoneTypeText).ToList();
+                    PhoneTypeComboBox.ItemsSource = PhoneTypes;
+                }
+
+                else
                 {
                     using ApplicationContext ApplicationContext = new();
 
@@ -204,7 +229,7 @@ namespace DigitalContactsNotebook.Views
                         Name = NameTextBox.Text,
                         Surname = SurnameTextBox.Text,
                         Patronymic = Patronymic,
-                        Sex = SexComboBox.Text[0]
+                        Sex = SexComboBox.Text/*[0]*/
                     };
 
                     int? PhoneTypeID = null;
@@ -229,14 +254,6 @@ namespace DigitalContactsNotebook.Views
 
                     //string sql = "INSERT INTO Contacts (ID, PhoneNumber, PhoneTypeID, ContactInfoID) VALUES (@p0, @p1, @p2, @p3)";
                     //ApplicationContext.Database.ExecuteSqlCommand(sql, 2, "1234567890", 1, 2);
-                }
-
-                else
-                {
-                    using ApplicationContext ApplicationContext = new();
-
-                    List<string> PhoneTypes = ApplicationContext.PhoneTypes.Select(PhoneType => PhoneType.PhoneTypeText).ToList();
-                    PhoneTypeComboBox.ItemsSource = PhoneTypes;
                 }
             }
         }
